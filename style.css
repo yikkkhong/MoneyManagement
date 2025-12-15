@@ -1,0 +1,85 @@
+:root {
+    --primary: #4CAF50;
+    --danger: #ff5252;
+    --bg: #f4f7f6;
+    --card-bg: #ffffff;
+    --text: #333;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    padding-bottom: 50px;
+}
+
+header {
+    background-color: var(--primary);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+h1 { margin: 0; font-size: 1.5rem; }
+p { margin: 5px 0 0; font-size: 0.9rem; opacity: 0.9; }
+
+main { padding: 15px; max-width: 600px; margin: 0 auto; }
+
+.card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+h2 { margin-top: 0; font-size: 1.2rem; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+
+.input-group { margin-bottom: 15px; }
+.input-group label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9rem;}
+.input-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1rem;}
+
+.allocation-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+.allocation-item input[type="text"] { flex: 2; }
+.allocation-item input[type="number"] { flex: 1; }
+.btn-delete { background: none; border: none; color: var(--danger); font-size: 1.2rem; cursor: pointer; }
+
+button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+}
+.btn-outline { background: white; border: 1px solid var(--primary); color: var(--primary); }
+.input-group-row { display: flex; gap: 5px; margin-bottom: 15px; }
+.input-group-row button { width: auto; }
+
+.highlight { color: var(--primary); font-weight: bold; font-size: 1.2rem; }
+
+/* Wishlist Item Styles */
+.wish-item {
+    border-left: 4px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #fafafa;
+}
+.wish-header { display: flex; justify-content: space-between; font-weight: bold; }
+.math-analysis { font-size: 0.85rem; color: #666; margin-top: 5px; line-height: 1.4; }
+.risk-high { border-left-color: var(--danger); }
+.risk-low { border-left-color: var(--primary); }
+.summary-box { margin-top: 15px; font-weight: bold; }

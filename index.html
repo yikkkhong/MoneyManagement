@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Finance Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+
+    <header>
+        <h1>💰 Smart Finance</h1>
+        <p>Math-based Wealth Management</p>
+    </header>
+
+    <main>
+        <section class="card">
+            <h2>📊 Base Funds</h2>
+            <div class="input-group">
+                <label>Current Total Balance (RM)</label>
+                <input type="number" id="currentBalance" placeholder="0.00">
+            </div>
+            <div class="input-group">
+                <label>Income (Monthly/Weekly) (RM)</label>
+                <input type="number" id="income" placeholder="0.00">
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>🍰 Budget Allocation</h2>
+            <div id="allocationList">
+                </div>
+            <button onclick="addAllocationCategory()" class="btn-outline">+ Add Category</button>
+            
+            <div class="summary-box">
+                <p>Unallocated Cash: <span id="unallocatedAmount" class="highlight">0.00</span></p>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>🛒 Wishlist & Analysis</h2>
+            <div class="input-group-row">
+                <input type="text" id="wishItem" placeholder="Item Name">
+                <input type="number" id="wishPrice" placeholder="Price">
+                <button onclick="addToWishlist()">Analyze</button>
+            </div>
+            <ul id="wishlistContainer">
+                </ul>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Register Service Worker (Required for PWA)
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('Service Worker Registered'));
+        }
+    </script>
+</body>
+</html>
