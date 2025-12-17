@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Smart Finance Pro</title>
+    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+
+    <header>
+        <h1 id="pageTitle">Overview</h1>
+    </header>
+
+    <main>
+        <section id="page-home" class="page active">
+            <div class="card summary-card">
+                <h3>Current Balance</h3>
+                <div class="big-number" id="displayBalance">RM 0.00</div>
+                <div class="health-bar-container">
+                    <div id="healthBar" class="health-bar" style="width: 100%;"></div>
+                </div>
+                <p id="healthText" class="small-text">Finances look healthy.</p>
+            </div>
+
+            <div class="card">
+                <h3>🤖 AI Projection</h3>
+                <p id="projectionText">Start recording expenses to get predictions.</p>
+            </div>
+        </section>
+
+        <section id="page-expenses" class="page">
+            <div class="filter-tabs">
+                <button class="filter-btn active" onclick="filterExpenses('week')">This Week</button>
+                <button class="filter-btn" onclick="filterExpenses('month')">This Month</button>
+            </div>
+
+            <div class="card input-area">
+                <input type="text" id="expenseName" placeholder="What did you buy?">
+                <input type="number" id="expenseAmount" placeholder="Amount (RM)">
+                <button onclick="addExpense()" class="btn-primary">Record Expense</button>
+            </div>
+
+            <div id="expenseList" class="scroll-list">
+                </div>
+        </section>
+
+        <section id="page-manage" class="page">
+            <div class="card">
+                <h2>💰 Income & Setup</h2>
+                <div class="input-group">
+                    <label>Total Balance Start (RM)</label>
+                    <input type="number" id="inpBalance" placeholder="0.00" onchange="updateSettings()">
+                </div>
+                <div class="input-group">
+                    <label>Monthly Income (RM)</label>
+                    <input type="number" id="inpIncome" placeholder="0.00" onchange="updateSettings()">
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>🍰 Budget Allocation</h2>
+                <p class="small-text">Plan how to split your income.</p>
+                <div id="allocationList"></div>
+                <button onclick="addAllocation()" class="btn-outline">+ Add Category</button>
+            </div>
+        </section>
+
+        <section id="page-wishlist" class="page">
+            <div class="card">
+                <input type="text" id="wishName" placeholder="Item Name">
+                <input type="number" id="wishPrice" placeholder="Price (RM)">
+                <button onclick="addWish()" class="btn-primary">Analyze Affordability</button>
+            </div>
+            <ul id="wishContainer"></ul>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="navTo('home')">
+            <span>🏠</span>
+            Home
+        </button>
+        <button class="nav-item" onclick="navTo('expenses')">
+            <span>💸</span>
+            Expenses
+        </button>
+        <button class="nav-item" onclick="navTo('manage')">
+            <span>⚙️</span>
+            Manage
+        </button>
+        <button class="nav-item" onclick="navTo('wishlist')">
+            <span>🛒</span>
+            Wishlist
+        </button>
+    </nav>
+
+    <script src="script.js?v=2"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js?v=2');
+        }
+    </script>
+</body>
+</html>
