@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Finance Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#388E3C">
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <h1>Finance Management</h1>
+    </header>
+
+    <main>
+        <section id="page-incomes" class="page">
+            <h2 class="section-title">Income Settings</h2>
+            <div class="card card-hero">
+                <p>Monthly Income</p>
+                <div class="input-currency-hero">
+                    <span>RM</span>
+                    <input type="number" id="monthlyIncome" placeholder="0.00" onchange="saveIncome()">
+                </div>
+            </div>
+        </section>
+
+        <section id="page-expenses" class="page">
+            <h2 class="section-title">Transactions</h2>
+            
+            <div class="card">
+                <h3 class="card-header">New Expense</h3>
+                <div class="form-group">
+                    <label>Amount</label>
+                    <div class="input-currency">
+                        <span>RM</span>
+                        <input type="number" id="expenseAmount" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" id="expenseName" placeholder="e.g. Lunch">
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="expenseDate">
+                </div>
+                <div class="form-group">
+                    <label>Deduct From</label>
+                    <select id="expenseCategory"></select>
+                </div>
+                <button onclick="addExpense()" class="btn-primary">Confirm Transaction</button>
+            </div>
+
+            <button onclick="toggleHistory()" class="btn-text">View Transaction History ▼</button>
+            <div id="historySection" class="hidden-section">
+                <div id="expenseList"></div>
+            </div>
+        </section>
+
+        <section id="page-home" class="page active">
+            <div class="card card-balance">
+                <p class="balance-label">Total Balance</p>
+                <div class="balance-wrapper">
+                    <span class="currency">RM</span>
+                    <span id="totalBalanceDisplay" class="balance-text">0.00</span>
+                </div>
+                <div class="balance-date">Auto-calculated from wallets</div>
+            </div>
+
+            <div class="section-header">
+                <h2>My Wallets</h2>
+                <button onclick="addMainSection()" class="btn-icon-add">+</button>
+            </div>
+            
+            <div id="bucketsContainer" class="wallet-grid">
+                </div>
+        </section>
+
+        <section id="page-allocation" class="page">
+            <h2 class="section-title">Budget Allocation</h2>
+            
+            <div class="card card-info">
+                <div class="flex-between">
+                    <span>Monthly Income</span>
+                    <span class="bold" id="planIncome">0.00</span>
+                </div>
+                <div class="flex-between">
+                    <span>Total Planned</span>
+                    <span class="bold" id="planTotal">0.00</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div id="incomeProgressBar" class="progress-bar-fill"></div>
+                </div>
+            </div>
+
+            <p class="helper-text">Set your monthly budget targets:</p>
+            <div id="planInputs"></div>
+        </section>
+
+        <section id="page-wishlist" class="page">
+            <h2 class="section-title">Wishlist Analysis</h2>
+            <div class="card">
+                <div class="form-group">
+                    <label>Goal Name</label>
+                    <input type="text" id="wishName" placeholder="e.g. New Phone">
+                </div>
+                <div class="form-group">
+                    <label>Target Price</label>
+                    <div class="input-currency">
+                        <span>RM</span>
+                        <input type="number" id="wishPrice">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Fund Source (Wallet)</label>
+                    <select id="wishCategory"></select>
+                </div>
+                <button onclick="addWish()" class="btn-primary">Analyze Goal</button>
+            </div>
+            <div id="wishContainer"></div>
+        </section>
+    </main>
+
+    <div id="bucketModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Details</h3>
+                <button onclick="closeModal()" class="close-btn">&times;</button>
+            </div>
+            
+            <div class="modal-summary">
+                <p>Main Budget: <span id="modalLimit" class="bold">0</span></p>
+                <p>Sub-Allocated: <span id="modalAllocated" class="bold">0</span></p>
+            </div>
+
+            <div id="subAllocList" class="sub-list"></div>
+            
+            <div class="add-sub-box">
+                <h4>Add Sub-Category</h4>
+                <div class="flex-row">
+                    <input type="text" id="newSubName" placeholder="Name">
+                    <input type="number" id="newSubAmount" placeholder="Amt">
+                </div>
+                <button onclick="addSubAlloc()" class="btn-secondary">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <button class="nav-item" onclick="navTo('incomes')">
+            <div class="icon">📅</div>
+            <span>Income</span>
+        </button>
+        <button class="nav-item" onclick="navTo('expenses')">
+            <div class="icon">💸</div>
+            <span>Pay</span>
+        </button>
+        <button class="nav-item active" onclick="navTo('home')">
+            <div class="icon">🏠</div>
+            <span>Home</span>
+        </button>
+        <button class="nav-item" onclick="navTo('allocation')">
+            <div class="icon">📊</div>
+            <span>Plan</span>
+        </button>
+        <button class="nav-item" onclick="navTo('wishlist')">
+            <div class="icon">🎁</div>
+            <span>Wishlist</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+    </script>
+</body>
+</html>
